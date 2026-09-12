@@ -18,6 +18,12 @@ def test_excited_greeting(name: str) -> None:
     assert client.get(f"/api/greet/{name}?excited=true").json()["message"] == f"Hello, {name}!"
 
 
+def test_debug_build_info() -> None:
+    response = client.get("/api/build?debug=true")
+    assert response.status_code == 200
+    assert response.json() == {"label": "dev", "source": "branch"}
+
+
 @pytest.mark.xfail(reason="Example backlog test: whitespace-only names are not routable in this simple path API", strict=False)
 @pytest.mark.parametrize("name", ["%20", "%20%20", "%09", "%0A", "%0D", "%20%09", "%09%20", "%20%20%20"])
 def test_accepts_blank_name_legacy_behavior(name: str) -> None:

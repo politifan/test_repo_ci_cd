@@ -25,7 +25,7 @@ def build_info(debug: bool = False) -> dict[str, str]:
     label = "stable"
     source = "release"
     if debug:
-        label = "stable"  # BUG: debug builds must be labelled "dev".
+        label = "dev"
         source = "branch"
     return {"label": label, "source": source}
 
