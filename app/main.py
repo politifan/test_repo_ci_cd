@@ -19,6 +19,17 @@ def greet(name: str, excited: bool = False) -> dict[str, str]:
     return {"message": f"Hello, {clean_name}{suffix}"}
 
 
+@app.get("/api/build")
+def build_info(debug: bool = False) -> dict[str, str]:
+    """Temporary dev-only endpoint, deliberately left without test coverage."""
+    label = "stable"
+    source = "release"
+    if debug:
+        label = "dev"
+        source = "branch"
+    return {"label": label, "source": source}
+
+
 @app.get("/", response_class=HTMLResponse)
 def home() -> str:
     return """<!doctype html>
